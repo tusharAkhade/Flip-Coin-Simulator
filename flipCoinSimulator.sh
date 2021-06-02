@@ -1,7 +1,7 @@
-read -p "How many times you want to toss the coin: " num
 headCount=0
 tailCount=0
-for(( i=1; i<=$num; i++ ))
+maxWon=21
+while [ $headCount -lt $maxWon -a $tailCount -lt $maxWon ]
 do
 	random=$((RANDOM%2))
 	if [ $random -eq 1 ]
@@ -11,6 +11,13 @@ do
 		((tailCount++))
 	fi
 done
-
-echo "Head won $headCount times"
-echo "Tail won $tailCount times"
+if [ $headCount -eq $maxWon ]
+then
+	wonCount=$((headCount-tailCount))
+	echo "Head won."
+	echo "Head won by $wonCount points."
+else
+	wonCount=$((tailCount-headCount))
+	echo "Tail won."
+	echo "Tail won by $wonCount points."
+fi
